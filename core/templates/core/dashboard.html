@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Based Payment Fraud Detection - Interactive Project Synopsis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom scrollbar for logs */
+        .log-scroll::-webkit-scrollbar { width: 6px; }
+        .log-scroll::-webkit-scrollbar-track { background: #1e293b; }
+        .log-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-700 tracking-tight">FraudGuard<span class="text-slate-400">AI</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                    <button onclick="scrollToSection('hero')" class="hover:text-indigo-600 transition">Overview</button>
+                    <button onclick="scrollToSection('problems')" class="hover:text-indigo-600 transition">Challenges</button>
+                    <button onclick="scrollToSection('solution')" class="hover:text-indigo-600 transition">AI Modules</button>
+                    <button onclick="scrollToSection('dashboard')" class="text-indigo-600 font-bold transition">Dashboard</button>
+                    
+                </div>
+                <div>
+                     <a href="/live" class="text-xs text-slate-400 hover:text-indigo-600">Live Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative bg-gradient-to-br from-indigo-900 to-slate-900 text-white py-20 lg:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:w-2/3">
+                <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-indigo-300 uppercase bg-indigo-900/50 rounded-full border border-indigo-700">
+                    Academic Year 2025-26
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    AI-Based Payment Fraud Detection <br> <span class="text-indigo-400">in Petrol Billing</span>
+                </h1>
+                <p class="text-xl text-slate-300 mb-8 max-w-2xl leading-relaxed">
+                    An automated, real-time solution leveraging Machine Learning and Computer Vision to eliminate billing discrepancies, fake UPI screenshots, and employee manipulation at petrol stations.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="scrollToSection('dashboard')" class="px-8 py-3 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-lg shadow-lg transition transform hover:-translate-y-1">
+                        Go to Live Dashboard
+                    </button>
+                    <button onclick="scrollToSection('solution')" class="px-8 py-3 bg-transparent border border-slate-400 hover:bg-white/10 text-white font-semibold rounded-lg transition">
+                        How It Works
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section id="problems" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900">Why is this system needed?</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                    Petrol stations face frequent fraud types that manual verification simply cannot catch effectively.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="problem-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- The Core Solution: Interactive Modules -->
+    <section id="solution" class="py-16 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">5-Module Architecture</h2>
+                <p class="mt-4 text-lg text-slate-600">Explore the logic behind each AI module.</p>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/3 space-y-2">
+                    <div id="module-nav" class="bg-white rounded-xl shadow-sm border border-slate-200 p-2"></div>
+                </div>
+                <div class="lg:w-2/3">
+                    <div id="module-display" class="bg-white rounded-xl shadow-lg border border-indigo-100 p-8 h-full min-h-[500px] flex flex-col justify-between relative overflow-hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Dashboard Simulation (CONNECTED TO DJANGO) -->
+    <section id="dashboard" class="py-20 bg-slate-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10 flex flex-col md:flex-row justify-between items-end border-b border-slate-700 pb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+                        Dashboard
+                    </h2>
+                    <p class="mt-2 text-slate-400">Real-time data from localhost server.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-4 text-sm font-mono items-center">
+                    <div class="hidden md:block text-slate-400 mr-4">
+                        Total Txns: <span class="text-white font-bold">{{ total }}</span> | 
+                        Fraud: <span class="text-rose-400 font-bold">{{ fraud_count }}</span>
+                    </div>
+                    <!-- FUNCTIONAL BUTTONS -->
+                    
+                    <a href="{% url 'export_report' %}" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded shadow-lg hover:shadow-emerald-500/50 transition">
+                        Download CSV
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Live Chart -->
+                <div class="lg:col-span-2 bg-slate-800 rounded-xl p-6 border border-slate-700">
+                    <h3 class="text-lg font-semibold mb-4 text-slate-200">Transaction Volume (Simulated Live Feed)</h3>
+                    <div class="chart-container">
+                        <canvas id="liveChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Live Log (REAL DATA) -->
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 flex flex-col h-[420px]">
+                    <h3 class="text-lg font-semibold mb-4 text-slate-200 flex justify-between">
+                        Real-Time Logs
+                        <span class="text-xs bg-indigo-900 text-indigo-300 px-2 py-1 rounded">Live DB</span>
+                    </h3>
+                    <div id="alert-log" class="flex-1 overflow-y-auto log-scroll space-y-3 font-mono text-sm pr-2">
+                        
+                        <!-- DJANGO REAL ALERTS -->
+                        {% for alert in recent_alerts %}
+                        <div class="flex justify-between items-start border-b border-slate-700 pb-2 animate-fade-in">
+                            <span class="text-rose-400 font-bold">[ALERT]</span>
+                            <div class="mx-2 flex-1">
+                                <span class="text-slate-200 block">{{ alert.fraud_reason }}</span>
+                                <span class="text-slate-500 text-xs">ID: {{ alert.transaction_id }}</span>
+                                {% if alert.ela_evidence %}
+                                    <span class="text-xs text-indigo-400 block mt-1">📸 Forensic Img Saved</span>
+                                {% endif %}
+                            </div>
+                            <span class="text-slate-500 text-xs">{{ alert.created_at|date:"H:i:s" }}</span>
+                        </div>
+                        {% empty %}
+                        <div class="text-center text-slate-500 mt-10">
+                            No fraud detected yet.<br>Click "+ New Scan" to test.
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fraud Type Stats -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+                    <h3 class="text-lg font-semibold mb-4 text-slate-200">Fraud Distribution (Global Stats)</h3>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="fraudTypeChart"></canvas>
+                    </div>
+                 </div>
+                 <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 flex flex-col justify-center">
+                    <h3 class="text-lg font-semibold mb-6 text-slate-200">System Accuracy Metrics</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1 text-slate-300">
+                                <span>Fake Screenshot Detection</span>
+                                <span class="font-bold text-emerald-400">98.5%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-emerald-500 h-2 rounded-full" style="width: 98.5%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1 text-slate-300">
+                                <span>Billing Mismatch Identification</span>
+                                <span class="font-bold text-indigo-400">99.9%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div class="bg-indigo-500 h-2 rounded-full" style="width: 99.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 AI Payment Fraud Detection Project.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA STORE (Static Content) ---
+        const projectData = {
+            problems: [
+                { title: "Fake UPI Screenshots", desc: "Customers show edited screenshots of past payments.", icon: "📱", ai: "Image forensics detect metadata and pixel manipulation." },
+                { title: "Billing Mismatch", desc: "Fuel dispensed doesn't match the billed amount.", icon: "⛽", ai: "Auto-calculates Price x Quantity and flags discrepancies instantly." },
+                { title: "Duplicate Bills", desc: "Reusing old bills to claim fuel or reimbursement.", icon: "📄", ai: "Database checks transaction IDs for uniqueness instantly." }
+            ],
+            modules: [
+                { id: "payment", name: "1. Payment Verification", desc: "Validates UPI/Card transaction data and detects fake or duplicate payments.", type: "logic" },
+                { id: "screenshot", name: "2. Screenshot Fraud", desc: "Uses AI Image Forensics and OCR to detect edited or manipulated UPI screenshots.", type: "visual" },
+                { id: "billing", name: "3. Billing Analysis", desc: "Compares dispensed fuel quantity with billed amount based on unit price.", type: "calc" },
+                { id: "pattern", name: "4. Transaction Pattern", desc: "Detects abnormal customer or employee behavior over time.", type: "chart" },
+                { id: "cctv", name: "5. CCTV Integration", desc: "Cross-checks pump reading vs billing in real time using OCR on video feed.", type: "visual" }
+            ]
+        };
+
+        // --- RENDER FUNCTIONS ---
+        const problemGrid = document.getElementById('problem-grid');
+        projectData.problems.forEach(prob => {
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-xl shadow border border-slate-100 p-6 hover:shadow-lg transition group cursor-pointer";
+            card.innerHTML = `
+                <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">${prob.icon}</div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">${prob.title}</h3>
+                <p class="text-slate-600 mb-4">${prob.desc}</p>
+                <div class="bg-slate-50 p-3 rounded text-sm border-l-4 border-indigo-500">
+                    <span class="font-semibold text-indigo-700">AI Advantage:</span> ${prob.ai}
+                </div>
+            `;
+            problemGrid.appendChild(card);
+        });
+
+        let currentModuleIndex = 0;
+        const navContainer = document.getElementById('module-nav');
+        const displayContainer = document.getElementById('module-display');
+
+        function renderModules() {
+            navContainer.innerHTML = '';
+            projectData.modules.forEach((mod, index) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left px-6 py-4 rounded-lg transition flex items-center justify-between group ${
+                    index === currentModuleIndex 
+                    ? 'bg-indigo-600 text-white shadow-md' 
+                    : 'bg-white text-slate-600 hover:bg-slate-50'
+                }`;
+                btn.innerHTML = `<span class="font-semibold">${mod.name}</span><span class="${index === currentModuleIndex ? 'text-indigo-200' : 'text-slate-300'}">→</span>`;
+                btn.onclick = () => { currentModuleIndex = index; renderModules(); };
+                navContainer.appendChild(btn);
+            });
+            renderModuleContent(projectData.modules[currentModuleIndex]);
+        }
+
+        function renderModuleContent(mod) {
+            let demoHTML = `<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 mt-6 flex flex-col items-center justify-center h-48"><p class="text-slate-500">Logic visualization for ${mod.name}</p></div>`;
+            
+            if (mod.id === 'billing') {
+                demoHTML = `
+                    <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-100 mt-6">
+                        <h4 class="font-bold text-indigo-900 mb-4">Interactive Logic Check</h4>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Quantity (L)</label><input type="number" id="demo-qty" value="10" class="w-full p-2 border rounded"></div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Price/L (₹)</label><input type="number" id="demo-price" value="100" class="w-full p-2 border rounded"></div>
+                        </div>
+                        <div><label class="block text-xs font-bold text-slate-500 mb-1">Billed Amount (₹)</label><input type="number" id="demo-bill" value="950" class="w-full p-2 border rounded border-rose-300 bg-rose-50"><p class="text-xs text-rose-500 mt-1">Try changing to 1000 to fix error</p></div>
+                        <button onclick="checkBilling()" class="mt-4 w-full bg-indigo-600 text-white py-2 rounded font-bold hover:bg-indigo-700">Verify Transaction</button>
+                        <div id="billing-result" class="mt-4 hidden p-3 rounded text-sm font-bold text-center"></div>
+                    </div>`;
+            }
+
+            displayContainer.innerHTML = `
+                <div class="animate-fade-in">
+                    <h3 class="text-2xl font-bold text-indigo-900 mb-2">${mod.name}</h3>
+                    <p class="text-lg text-slate-600 mb-6 border-b border-slate-100 pb-4">${mod.desc}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-semibold text-slate-800 mb-2">How it works:</h4>
+                            <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                                <li>Input Data Acquisition</li><li>Preprocessing & Extraction</li><li><strong>AI Model Analysis</strong></li><li>Threshold Comparison</li>
+                            </ul>
+                        </div>
+                        <div>${demoHTML}</div>
+                    </div>
+                </div>`;
+        }
+
+        window.checkBilling = function() {
+            const q = parseFloat(document.getElementById('demo-qty').value);
+            const p = parseFloat(document.getElementById('demo-price').value);
+            const bill = parseFloat(document.getElementById('demo-bill').value);
+            const res = document.getElementById('billing-result');
+            const correct = q * p;
+            if(Math.abs(correct - bill) < 0.1) {
+                res.className = "mt-4 p-3 rounded text-sm font-bold text-center bg-emerald-100 text-emerald-700 animate-fade-in";
+                res.innerHTML = "✅ MATCH: Billing amount is correct.";
+            } else {
+                res.className = "mt-4 p-3 rounded text-sm font-bold text-center bg-rose-100 text-rose-700 animate-fade-in";
+                res.innerHTML = `⚠️ FRAUD ALERT: Mismatch! Should be ₹${correct}`;
+            }
+            res.classList.remove('hidden');
+        }
+
+        renderModules();
+
+        // --- CHART JS ---
+        const ctxLive = document.getElementById('liveChart').getContext('2d');
+        const liveChart = new Chart(ctxLive, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 10}, (_, i) => `${10-i}s`),
+                datasets: [{ label: 'Txns', data: [12,19,15,17,22,24,20,25,23,30], borderColor: '#6366f1', tension: 0.4 }, 
+                           { label: 'Fraud', data: [1,2,0,1,3,0,1,0,2,1], borderColor: '#f43f5e', fill: true, backgroundColor: 'rgba(244, 63, 94, 0.1)' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { x: { display: false }, y: { grid: { color: '#334155' } } }, plugins: { legend: { labels: { color: '#cbd5e1' } } } }
+        });
+
+        // Loop to simulate live chart movement
+        setInterval(() => {
+            const newTxn = Math.floor(Math.random() * 10) + 20;
+            const newFraud = Math.random() > 0.8 ? 1 : 0; // Low fraud rate for visual
+            liveChart.data.datasets[0].data.shift(); liveChart.data.datasets[0].data.push(newTxn);
+            liveChart.data.datasets[1].data.shift(); liveChart.data.datasets[1].data.push(newFraud);
+            liveChart.update();
+        }, 2000);
+
+        const ctxType = document.getElementById('fraudTypeChart').getContext('2d');
+        new Chart(ctxType, {
+            type: 'doughnut',
+            data: { labels: ['Fake Screenshot', 'Billing Mismatch', 'Pattern'], datasets: [{ data: [35, 25, 20], backgroundColor: ['#f43f5e', '#f59e0b', '#3b82f6'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#cbd5e1' } } } }
+        });
+
+        function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+    </script>
+</body>
+</html>
